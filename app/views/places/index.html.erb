@@ -8,3 +8,12 @@
   </div>
 
 <% end %>
+
+<br class="clear"/>
+<div class="container-fluid">
+  <div class="col-xs-10 col-xs-offset-1 paginated-links-section">
+    <%= will_paginate @places, :class => "paginated-link" %>
+  </div>
+</div>
+<br />
+<br />

@@ -34,3 +34,25 @@ body {
   font-family: 'alex_brushregular';
   font-size: 32px;
 }
+
+.paginated-link span, .paginated-link a {
+  padding: 0.3em 0.6em;
+  border: 1px solid grey;
+  background-color: #F5F5F1;
+  text-align: center;
+}
+
+.paginated-link .current {
+  font-style: normal;
+  text-align: center;
+  padding: 0.5em 0.9em;
+  border: 1px solid grey;
+  background-color: #212121;
+  color: white;
+  width: 10px;
+  height: 10px;
+}
+
+.clear {
+  clear: both;
+}
