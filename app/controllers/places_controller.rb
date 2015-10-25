@@ -5,6 +5,7 @@ class PlacesController < ApplicationController
   def index
     # Paginated db pull
     @places = Place.order("id ASC").paginate( :page => params[:page], :per_page => 5 )
+    @testing = "TESTING"
   end
   
   def new
@@ -23,7 +24,10 @@ class PlacesController < ApplicationController
   
   def show
     @place = Place.find(params[:id])
+    
+    @testVar = "Brandon"
     @comment = Comment.new
+    @my_comments = @place.comments.all
   end
   
   def edit
