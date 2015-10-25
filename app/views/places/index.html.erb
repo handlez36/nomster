@@ -2,6 +2,12 @@
   <div class="container-fluid">
     <div class="booyah-box col-xs-10 col-xs-offset-1">
       
+      <% if place.photos.present? %>
+        <div class="col-xs-12 col-sm-3 pull-right">
+          <%= image_tag place.photos.first.picture, :class => "img-responsive pull-right" %>
+        </div>
+      <% end %>
+      
       <h1><%= link_to place.name, place_path(place) %></h1>
       <i><%= place.address %></i><br /><br />
       <p><%= place.description %></p><br />

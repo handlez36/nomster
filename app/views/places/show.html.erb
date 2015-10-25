@@ -1,3 +1,4 @@
+<!-- Display Place Details -->
 <div class="col-xs-10 col-xs-offset-1 booyah-box">
   <h1><%= @place.name %></h1>
   <i><%= @place.address %></i>
@@ -34,6 +35,9 @@
   
   <div class="pull-right">
     <% if current_user && (current_user == @place.user) %>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myPhotoModal">
+        Add Photo
+      </button>  
       <%= link_to 'Edit', edit_place_path(@place), :class => 'btn btn-primary' %>
       <%= link_to 'Destroy', place_path(@place), :method => :delete, :data => {:confirm => 'Are you sure you want to delete this?'}, :class => 'btn btn-danger' %>
     <% end %>
@@ -42,8 +46,9 @@
 
 <div class="clear"></div>
 
+<!-- Comments header -->
 <div class="col-xs-10 col-xs-offset-1">
-  <h1 class="pull-left">Comments</h1>
+  <h2 class="pull-left">Comments</h2>
   <!-- Button trigger modal -->
   <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">
     Add a comment
@@ -52,19 +57,45 @@
 
 <div class="clear"></div>
 
-<% @place.comments.each do |c| %>
-  <div class="col-xs-10 col-sm-6">
+<!-- List comments for the current place -->
+<% if @place.comments.present? %>
+  <% @place.comments.each do |c| %>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1">
+      <blockquote>
+        <% if c.humanized_rating.present? %>
+          <b><%= c.humanized_rating %></b> - 
+        <% end %>
+        <%= c.message %>
+        <small><%= c.user.email %></small>
+      </blockquote>
+    </div>
+  <% end %>
+<% else %>
+  <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1">
     <blockquote>
-      <% if c.humanized_rating.present? %>
-        <b><%= c.humanized_rating %></b> - 
-      <% end %>
-      <%= c.message %>
-      <small><%= c.user.email %></small>
+      <span>No Comments</span>
     </blockquote>
   </div>
 <% end %>
+<br class="clear" />
+<br />
 
-<!-- Modal -->
+<div class="clear"></div>
+
+<!-- Display photos attached to the current place -->
+<div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 photo_row booyah-box">
+  <h2>Photos</h2><br />
+  <% @place.photos.each do |image| %>
+    <div class="col-xs-12 col-sm-3 photo">
+      <%= image_tag image.picture, :class => "img-responsive" %>
+      <br />
+      <%= image.caption %>
+    </div>
+  <% end %>
+</div>
+<br class="clear" />
+  
+<!-- Comment Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -80,6 +111,29 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <%= c.submit "Add a Comment", :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Photo Modal -->
+<div class="modal fade" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myPhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myPhotoModalLabel">Upload a photo</h4>
+      </div>
+      <%= simple_form_for @photo, :url => place_photos_path(@place) do |p| %>
+        <div class="modal-body">        
+          <%= p.input :picture %>
+          <br />
+          <%= p.input :caption %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= p.submit "Upload", :class => 'btn btn-primary' %>
         </div>
       <% end %>
     </div>
