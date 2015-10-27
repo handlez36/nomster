@@ -60,7 +60,7 @@
 <!-- List comments for the current place -->
 <% if @place.comments.present? %>
   <% @place.comments.each do |c| %>
-    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1">
+    <div class="col-xs-10 col-sm-6">
       <blockquote>
         <% if c.humanized_rating.present? %>
           <b><%= c.humanized_rating %></b> - 
