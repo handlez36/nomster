@@ -27,7 +27,11 @@
         <b><%= comment.humanized_rating %></b> - 
       <% end %>
       <%= comment.message %>
-      <span class="pull-right place-link"> <%= link_to ">> #{comment.place.name}", place_path(comment.place) %></span>
+      <% if comment.place.present? %>
+        <span class="pull-right place-link"> <%= link_to ">> #{comment.place.name}", place_path(comment.place) %></span>
+      <% else %>
+        <span class="pull-right place-link"><h3>"Sorry, this place has been removed"</h3></span>
+      <% end %>
       <small><%= comment.user.email %></small>
     </blockquote>
   </div>
