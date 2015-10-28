@@ -76,5 +76,33 @@
     <%= will_paginate @places, :class => "paginated-link" %>
   </div>
 </div>
+<br class="clear" />
 <br />
-<br />
+
+<div id="map">TESTING</div>
+<br /><br />
+
+<script>
+  function initMap() {
+      var myLatLng = {lat: <%= @places.last.latitude %>, lng: <%= @places.last.longitude %>};
+  
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: myLatLng
+      });
+      
+      <% count = 0 %>
+      <% @places.each do |place| %>            
+        myLatLng = {lat: <%= place.latitude %>, lng: <%= place.longitude %>};
+        marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: '<%=place.name%>'
+        });
+        <% count += 1 %>
+      <% end %>
+      
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap">
+  </script>

@@ -8,6 +8,12 @@
   <% if @place.latitude.present? && @place.longitude.present? %>
   
   <script>
+    
+/*    jQuery( function() {
+      $('a.fancybox').fancybox();
+    });
+    
+    $("a.fancybox").fancybox();*/
 
     function initMap() {
       var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
@@ -22,6 +28,14 @@
         map: map,
         title: 'Hello World!'
       });
+            
+      function drop {
+        for (var i=0; i<markers.length; i++) {
+          setTimeout( function() {
+            addMarker();
+          }, i * 200);
+        }
+      }
     }
 
   </script>
@@ -87,7 +101,8 @@
   <h2>Photos</h2><br />
   <% @place.photos.each do |image| %>
     <div class="col-xs-12 col-sm-3 photo">
-      <%= image_tag image.picture, :class => "img-responsive" %>
+      
+      <%= link_to image_tag(image.picture, :class => "img-responsive"), "#{image.picture}", :class => "fancybox" %>
       <br />
       <%= image.caption %>
     </div>
