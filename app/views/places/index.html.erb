@@ -82,6 +82,7 @@
 <div id="map">TESTING</div>
 <br /><br />
 
+<% if @places.present? %>
 <script>
   function initMap() {
       var myLatLng = {lat: <%= @places.last.latitude %>, lng: <%= @places.last.longitude %>};
@@ -106,3 +107,4 @@
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap">
   </script>
+<% end %>

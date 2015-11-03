@@ -4,7 +4,7 @@ class PlacesController < ApplicationController
   
   def index
     # Paginated db pull
-    @places = Place.order("id ASC").paginate( :page => params[:page], :per_page => 5 )
+    @places = Place.order("id ASC").paginate( :page => params[:page], :per_page => 2 )
     @testing = "TESTING"
   end
   

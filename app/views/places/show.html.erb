@@ -4,16 +4,14 @@
   <i><%= @place.address %></i>
   <br /><br />
   <p><%= @place.description %></p>
+  <p><%= "#{@place.latitude} and #{@place.longitude}" %></p>
   
   <% if @place.latitude.present? && @place.longitude.present? %>
   
   <script>
-    
-/*    jQuery( function() {
+    $(document).ready(function() {
       $('a.fancybox').fancybox();
     });
-    
-    $("a.fancybox").fancybox();*/
 
     function initMap() {
       var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
@@ -29,22 +27,15 @@
         title: 'Hello World!'
       });
             
-      function drop {
-        for (var i=0; i<markers.length; i++) {
-          setTimeout( function() {
-            addMarker();
-          }, i * 200);
-        }
-      }
     }
 
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap">
   </script>
-  
+
   <div id="map"></div>
   
-  <% end %>
+<% end %>  
   <br />
   
   <div class="pull-right">
